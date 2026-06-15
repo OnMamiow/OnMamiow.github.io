@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onnicha Chutong — Data Analyst Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #F5F2EE;
+    --bg-dark: #1A1714;
+    --surface: #FDFBF8;
+    --surface-dark: #242019;
+    --accent: #C4873A;
+    --accent-light: #E8C48A;
+    --text: #1A1714;
+    --text-muted: #6B6559;
+    --text-light: #9C9489;
+    --border: rgba(26,23,20,0.12);
+    --border-strong: rgba(26,23,20,0.25);
+    --teal: #1D9E75;
+    --teal-light: #E1F5EE;
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    cursor: default;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(245,242,238,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px; font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 6rem 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(196,135,58,0.04) 40px,
+      rgba(196,135,58,0.04) 41px
+    );
+  }
+
+  .hero-text { position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    background: rgba(196,135,58,0.1);
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1rem; color: var(--text-muted);
+    margin: 1.2rem 0 2rem;
+    max-width: 440px;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 0.75rem 1.75rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.05em;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--text);
+    color: #FFF;
+    border: none;
+  }
+
+  .btn-primary:hover { background: var(--accent); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+  }
+
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .hero-visual {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; gap: 1.2rem;
+  }
+
+  .info-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem 1.6rem;
+  }
+
+  .info-card-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .info-card-value {
+    font-size: 14px; font-weight: 500;
+    color: var(--text);
+  }
+
+  .tag-row {
+    display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.7rem;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .tag-teal { background: var(--teal-light); color: #0F6E56; }
+  .tag-blue { background: var(--blue-light); color: #0C447C; }
+  .tag-amber { background: #FAEEDA; color: #854F0B; }
+  .tag-gray { background: #F1EFE8; color: #5F5E5A; }
+
+  /* SECTIONS */
+  section {
+    padding: 5rem 6rem;
+  }
+
+  .section-header {
+    display: flex; align-items: baseline; gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700;
+  }
+
+  /* INTERNSHIP */
+  .internship-section { background: var(--surface); }
+
+  .internship-grid {
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 4rem; align-items: start;
+  }
+
+  .company-block {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 2rem;
+    border: 0.5px solid var(--border);
+    position: sticky; top: 7rem;
+  }
+
+  .company-logo-placeholder {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, #FFE066 0%, #F4A22B 100%);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 18px; font-weight: 700;
+    color: #3A2800;
+    margin-bottom: 1.2rem;
+  }
+
+  .company-name {
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;
+  }
+
+  .company-role {
+    font-size: 13px; color: var(--text-muted); margin-bottom: 1.2rem;
+  }
+
+  .company-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .achievement-list {
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+
+  .achievement-item {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+  }
+
+  .achievement-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  .achievement-text h4 {
+    font-size: 15px; font-weight: 500; margin-bottom: 0.3rem;
+  }
+
+  .achievement-text p {
+    font-size: 13px; color: var(--text-muted); line-height: 1.6;
+  }
+
+  .highlight-number {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700; color: var(--teal);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none; color: inherit;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .project-card.featured {
+    background: var(--text);
+    color: #FFF;
+    border-color: var(--text);
+  }
+
+  .project-card.featured .project-desc,
+  .project-card.featured .proj-tag { opacity: 0.7; }
+
+  .project-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+  }
+
+  .project-card.featured .project-num { color: rgba(255,255,255,0.5); }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-desc {
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.7; flex: 1;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 1.2rem;
+    border-top: 0.5px solid var(--border);
+    margin-top: auto;
+  }
+
+  .project-card.featured .project-footer { border-color: rgba(255,255,255,0.15); }
+
+  .proj-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+  .proj-tag {
+    font-size: 10px; letter-spacing: 0.05em;
+    padding: 3px 8px;
+    background: var(--bg); color: var(--text-muted);
+    border-radius: 2px;
+  }
+
+  .project-card.featured .proj-tag {
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8);
+  }
+
+  .proj-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: var(--accent);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .proj-link:hover { text-decoration: underline; }
+
+  /* SKILLS */
+  .skills-section { background: var(--text); color: #FFF; }
+  .skills-section .section-title { color: #FFF; }
+
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .skill-group h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em;
+    color: var(--accent-light);
+    margin-bottom: 1.2rem;
+  }
+
+  .skill-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  }
+
+  .skill-name {
+    font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.85);
+  }
+
+  .skill-bar {
+    width: 80px; height: 3px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* EDUCATION */
+  .edu-block {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: center;
+  }
+
+  .edu-left {}
+
+  .edu-right {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  .edu-uni {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-degree { font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+
+  .gpax-badge {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    background: var(--text);
+    color: #FFF;
+    padding: 0.8rem 1.4rem;
+    border-radius: 6px;
+    width: fit-content;
+    margin-bottom: 1rem;
+  }
+
+  .gpax-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--accent-light);
+  }
+
+  .honor-pill {
+    display: inline-block;
+    background: #FAEEDA; color: #854F0B;
+    font-size: 12px; font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+
+  .award-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+  }
+
+  .award-card h4 { font-size: 14px; font-weight: 500; margin-bottom: 0.3rem; }
+  .award-card p { font-size: 12px; color: var(--text-muted); }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .contact-section .section-header { justify-content: center; flex-direction: column; align-items: center; gap: 0.5rem; }
+
+  .contact-links {
+    display: flex; justify-content: center; gap: 1.5rem;
+    margin-top: 2rem; flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 14px; color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.7rem 1.4rem;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  footer {
+    text-align: center;
+    padding: 2rem 6rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em;
+    color: var(--text-light);
+    border-top: 0.5px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+    .hero-visual { display: none; }
+    section { padding: 3.5rem 1.5rem; }
+    .internship-grid { grid-template-columns: 1fr; }
+    .company-block { position: relative; top: 0; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .edu-block { grid-template-columns: 1fr; }
+    footer { padding: 2rem 1.5rem; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-text > * {
+    animation: fadeUp 0.6s ease backwards;
+  }
+  .hero-tag { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.2s; }
+  .hero-sub { animation-delay: 0.3s; }
+  .hero-cta { animation-delay: 0.4s; }
+  .hero-stats { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">OC — Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#internship">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-text">
+    <span class="hero-tag">Data Analyst · BI · Machine Learning</span>
+    <h1>
+      Onnicha<br>
+      <em>Chutong</em>
+    </h1>
+    <p class="hero-sub">
+      Data Science graduate from Chiang Mai University turning complex datasets 
+      into clear, actionable insights — through clustering, forecasting, visualization, 
+      and a love for making data actually useful.
+    </p>
+    <div class="hero-cta">
+      <a href="mailto:onnichachootong@gmail.com" class="btn btn-primary">Get in touch ↗</a>
+      <a href="https://github.com/OnMamiow" class="btn btn-outline" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/onnicha-chutong" class="btn btn-outline" target="_blank">LinkedIn</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">3.62</span>
+        <span class="stat-label">GPAX · 1st Honor</span>
+      </div>
+      <div>
+        <span class="stat-num">5+</span>
+        <span class="stat-label">Projects</span>
+      </div>
+      <div>
+        <span class="stat-num">~80%</span>
+        <span class="stat-label">Process time saved @ Michelin</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="info-card">
+      <div class="info-card-label">Education</div>
+      <div class="info-card-value">B.Sc. Data Science (Statistics)<br>Chiang Mai University</div>
+      <div class="tag-row">
+        <span class="tag tag-amber">GPAX 3.62</span>
+        <span class="tag tag-teal">1st Class Honors</span>
+        <span class="tag tag-blue">Minor: Marketing</span>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Latest Role</div>
+      <div class="info-card-value">Data Analyst Intern · Michelin Thailand</div>
+      <div class="tag-row">
+        <span class="tag tag-gray">Logistics &amp; Supply Chain</span>
+        <span class="tag tag-teal">Apr – Sep 2025</span>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Core Skills</div>
+      <div class="tag-row">
+        <span class="tag tag-blue">Python</span>
+        <span class="tag tag-blue">SQL</span>
+        <span class="tag tag-teal">Power BI</span>
+        <span class="tag tag-teal">K-Means</span>
+        <span class="tag tag-amber">Time Series</span>
+        <span class="tag tag-gray">Excel</span>
+        <span class="tag tag-gray">Databricks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERNSHIP -->
+<section class="internship-section" id="internship">
+  <div class="section-header">
+    <span class="section-label">01 — Experience</span>
+    <h2 class="section-title">Internship</h2>
+  </div>
+
+  <div class="internship-grid">
+    <div class="company-block">
+      <div class="company-logo-placeholder">M</div>
+      <div class="company-name">Michelin Thailand</div>
+      <div class="company-role">Data Analyst — Logistics &amp; Supply Chain</div>
+      <div class="company-meta">Apr 2025 — Sep 2025</div>
+      <div style="margin-top:1.2rem;">
+        <div class="tag-row">
+          <span class="tag tag-teal">Supply Chain</span>
+          <span class="tag tag-blue">Clustering</span>
+          <span class="tag tag-amber">Reporting</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="achievement-list">
+      <div class="achievement-item">
+        <div class="achievement-icon" style="background: var(--teal-light);">📊</div>
+        <div class="achievement-text">
+          <h4>Automated Cost Reporting</h4>
+          <p>Automated monthly transportation and warehouse cost reports, reducing manual preparation time by 
+            <span class="highlight-number">~80%</span> — enabling faster, data-driven decisions across supply chain operations.</p>
+        </div>
+      </div>
+      <div class="achievement-item">
+        <div class="achievement-icon" style="background: var(--blue-light);">🎯</div>
+        <div class="achievement-text">
+          <h4>Customer Segmentation Analysis</h4>
+          <p>Applied clustering techniques to identify <span class="highlight-number">5 distinct customer profiles</span> based on order behavior patterns, aligning logistics service strategies to each segment.</p>
+        </div>
+      </div>
+      <div class="achievement-item">
+        <div class="achievement-icon" style="background: #FAEEDA;">🤝</div>
+        <div class="achievement-text">
+          <h4>Cross-functional Collaboration</h4>
+          <p>Partnered with operations and warehouse teams to translate data insights into actionable supply chain decisions — bridging the gap between analysis and real-world execution.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background: var(--bg);">
+  <div class="section-header">
+    <span class="section-label">02 — Work</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+
+  <div class="projects-grid">
+    <!-- LSCMS -->
+    <div class="project-card featured">
+      <div class="project-num">PROJECT 01 — Mar 2026</div>
+      <div class="project-title">Land Surface Change Monitoring System</div>
+      <p class="project-desc">
+        Applied image processing and satellite data analysis to detect and quantify land surface changes over time — 
+        tracking wildfires, agriculture, and seasonal patterns.
+      </p>
+      <div style="margin-top: auto;">
+        <div class="tag-row" style="margin-bottom: 1.2rem;">
+          <span class="tag" style="background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.8);">Image Processing</span>
+          <span class="tag" style="background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.8);">Satellite Data</span>
+          <span class="tag" style="background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.8);">Python</span>
+        </div>
+        <a href="https://canva.link/a5fcrl3u8042zlm" target="_blank" class="proj-link">
+          View Presentation ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- Customer Segmentation -->
+    <div class="project-card">
+      <div class="project-num">PROJECT 02 — Oct 2024</div>
+      <div class="project-title">Customer Segmentation via K-Means Clustering</div>
+      <p class="project-desc">
+        Analyzed customer behavior dataset using K-Means, achieving <strong>95% accuracy</strong> via SVM validation. 
+        Identified 3 actionable segments with strategic recommendations for marketing and CRM.
+      </p>
+      <div class="project-footer">
+        <div class="proj-tags">
+          <span class="proj-tag">K-Means</span>
+          <span class="proj-tag">SVM</span>
+          <span class="proj-tag">Python</span>
+        </div>
+        <a href="customer_segment.png" target="_blank" class="proj-link">Poster ↗</a>
+      </div>
+    </div>
+
+    <!-- Electricity Forecasting -->
+    <div class="project-card">
+      <div class="project-num">PROJECT 03 — Feb 2024</div>
+      <div class="project-title">Electricity Usage Forecasting in Thailand</div>
+      <p class="project-desc">
+        Compared Decomposition, Holt-Winters, and SARIMA models. Achieved <strong>92.34% prediction accuracy</strong> 
+        with the best-performing model to support national energy planning.
+      </p>
+      <div class="project-footer">
+        <div class="proj-tags">
+          <span class="proj-tag">SARIMA</span>
+          <span class="proj-tag">Time Series</span>
+          <span class="proj-tag">Holt-Winters</span>
+        </div>
+        <a href="https://canva.link/84sq8lbhkbrmr7w" target="_blank" class="proj-link">Slides ↗</a>
+      </div>
+    </div>
+
+    <!-- Route Optimization -->
+    <div class="project-card">
+      <div class="project-num">PROJECT 04 — Sep–Oct 2024</div>
+      <div class="project-title">Route Optimization — MITR PHOL AI Hackathon</div>
+      <p class="project-desc">
+        Top 60 finalist. Tackled vehicle routing optimization using a Large Neighborhood Search (LNS) algorithm 
+        to address complex real-world routing constraints.
+      </p>
+      <div class="project-footer">
+        <div class="proj-tags">
+          <span class="proj-tag">LNS Algorithm</span>
+          <span class="proj-tag">Optimization</span>
+          <span class="proj-tag">Python</span>
+        </div>
+        <span class="proj-tag" style="font-size:11px; color: var(--accent);">🏆 Top 60</span>
+      </div>
+    </div>
+
+    <!-- Hackathon CMU -->
+    <div class="project-card">
+      <div class="project-num">PROJECT 05 — Feb 2024</div>
+      <div class="project-title">REG CMU Study Plan Assistant</div>
+      <p class="project-desc">
+        Winner of 24-hr Smart University Hackathon. Built a data-driven course recommendation system based on curriculum rules and student pathways for Chiang Mai University.
+      </p>
+      <div class="project-footer">
+        <div class="proj-tags">
+          <span class="proj-tag">Hackathon</span>
+          <span class="proj-tag">Recommendation</span>
+          <span class="proj-tag">Data Design</span>
+        </div>
+        <span style="font-size:11px; color: var(--accent);">🥇 Winner</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-header">
+    <span class="section-label" style="color: var(--accent-light);">03 — Capabilities</span>
+    <h2 class="section-title">Skills</h2>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-group">
+      <h4>Technical</h4>
+      <div class="skill-item">
+        <span class="skill-name">Python</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">SQL</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Power BI</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Excel</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Databricks</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h4>Machine Learning</h4>
+      <div class="skill-item">
+        <span class="skill-name">K-Means Clustering</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Regression Models</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Time Series (SARIMA)</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">XGBoost / LightGBM</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Image Processing</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:68%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h4>Soft Skills &amp; Languages</h4>
+      <div class="skill-item">
+        <span class="skill-name">Analytical Thinking</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Communication</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Leadership</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Thai (Native)</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">English</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background: var(--surface);">
+  <div class="section-header">
+    <span class="section-label">04 — Background</span>
+    <h2 class="section-title">Education</h2>
+  </div>
+
+  <div class="edu-block">
+    <div class="edu-left">
+      <div class="edu-uni">Chiang Mai<br>University</div>
+      <p class="edu-degree">B.Sc. Data Science (Statistics) · Minor in Marketing<br>Faculty of Science</p>
+      <div class="gpax-badge">
+        <span class="gpax-num">3.62</span>
+        <span style="font-size:13px; color: rgba(255,255,255,0.75);">GPAX</span>
+      </div>
+      <br>
+      <span class="honor-pill">🏅 1st Class Honors</span>
+    </div>
+
+    <div class="edu-right">
+      <div class="award-card">
+        <h4>🥇 Hackathon Winner — Smart University "Possibility for CMU"</h4>
+        <p>24-hour hackathon · Feb 2024 · REG CMU Study Plan Assistant</p>
+      </div>
+      <div class="award-card">
+        <h4>🏆 Top 60 Finalist — MITR PHOL AI Hackathon</h4>
+        <p>Vehicle route optimization challenge · Sep–Oct 2024</p>
+      </div>
+      <div class="award-card">
+        <h4>🌿 YOOUTH Leadership Program — CMU × Nestlé</h4>
+        <p>Sustainability-focused leadership &amp; Design Thinking · Mar 2026</p>
+      </div>
+      <div class="award-card">
+        <h4>🎤 MC &amp; Event Staff — Data Science Department</h4>
+        <p>Emceed 5 departmental events (100–150 attendees each) · 2024–2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-header">
+    <span class="section-label">05 — Say Hello</span>
+    <h2 class="section-title">Contact</h2>
+    <p style="color: var(--text-muted); font-size: 15px; max-width: 440px; text-align:center;">
+      Open to full-time data analyst roles, freelance projects, and interesting collaborations.
+    </p>
+  </div>
+
+  <div class="contact-links">
+    <a href="mailto:onnichachootong@gmail.com" class="contact-link">
+      ✉️ onnichachootong@gmail.com
+    </a>
+    <a href="tel:0863060553" class="contact-link">
+      📞 086-306-0553
+    </a>
+    <a href="https://github.com/OnMamiow" target="_blank" class="contact-link">
+      🐙 github.com/OnMamiow
+    </a>
+    <a href="https://www.linkedin.com/in/onnicha-chutong" target="_blank" class="contact-link">
+      💼 LinkedIn
+    </a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Onnicha Chutong · Built for GitHub Pages
+</footer>
+
+</body>
+</html>
